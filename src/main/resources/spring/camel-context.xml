@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:cxf="http://camel.apache.org/schema/cxf" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+						http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd">
+
+	<camelContext id="tngb_poc_1" xmlns="http://camel.apache.org/schema/spring">
+
+		<route>
+<!--			<from uri="netty:tcp://0.0.0.0:5000?textline=false&amp;sync=false" />-->
+			<from uri="{{route.tcpurl}}" />
+			<log message="Recieved Charactor streem is ${body}" />
+			<process ref="CharacterAccumulatorProcessor" />
+		</route>
+
+	</camelContext>
+</beans>

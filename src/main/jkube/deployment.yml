@@ -1,0 +1,18 @@
+spec:
+  template:
+    spec:
+      containers:
+        - 
+          resources:
+            limits:
+              cpu: "1"
+              memory: 1G
+            requests:
+              cpu: 50m
+              memory: 256Mi
+          env:
+          - name: SPRING_APPLICATION_JSON
+            value: '{"server":{"tomcat":{"max-threads":1}}}'
+          envFrom:
+          - configMapRef:
+               name: sapfe-configmap

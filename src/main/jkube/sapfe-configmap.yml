@@ -1,0 +1,77 @@
+apiVersion: v1
+data:
+  
+  route.HealthCheckEndpoint: 'http://0.0.0.0:9092/rest/sap/v1.0/healthCheck'
+  
+  spring.main.allow-bean-definition-overriding: true
+
+  #Global level settings'
+  route.protocol: 'http'
+  route.currentAdapterHost: '0.0.0.0'
+  route.currentAdapterPort: '9092'
+  route.ServiceName: 'SAP_FE_ADAPTER'
+  route.targetSystem: 'Cygnet_FE_ADAPTER'
+  route.logPayload: 'Y'
+  route.ConnectTimeout: '0'
+  route.SocketTimeout: '30000'
+  #Max delay time. If time is greater than this then retry will not sleep but persist in database '
+  route.maxRetryThreadWaitTime: '5000'
+  
+  #Used in exceptions and contains all the ESB error codes'
+  route.failureResponseStatus: 'Failure'
+  route.successResponseStatus: 'Success'
+  route.esbInvalidRequestErrorCode: 'ERRESB106'
+  route.esbInvalidRequestErrorMessage: 'Invalid Request Message'
+  route.esbInvalidJSONErrorCode: 'ERRESB107'
+  route.esbInvalidJSONErrorMessage: 'Invalid Message'
+  route.esbSocketExceptionCode: 'ERRESB109'
+  route.esbSocketExceptionErrorMessage: 'Request timed out while invoking backend service'
+  route.esbCommErrorCode: 'ERRESB102'
+  route.esbCommErrorErrorMessage: 'Requested Service unavailable'
+  route.sapErrorCode: 'ERRSAP100'
+  route.sapErrorMessage: 'Technical Failure in SAP'
+  route.esbGenericErrorCode: 'ERRESB108'
+  route.esbGenericErrorMessage: 'Unknown Error occurred'
+  route.retryableErrorCodes: 'ERRESB109,ERRESB102'
+  
+  #Global level setting for Send Limit'
+  route.SendLimitURL: 'rest/cfis/v1.0/cdi/sendLimit'
+  route.SendLimitMethod: 'POST'
+  route.SendLimitProcessName: 'SendLimit'
+  route.SendLimitMaskFields: '{}'
+  route.SendLimitRetryIntervalInMilliSecs: '1000'
+  route.SendLimitMaxRetries: '3'
+  route.SendLimitRetryFlag: 'Y'
+  route.SendLimitBEEndpoint: 'http://0.0.0.0:9092/rest/bajaj/v1.0/SendLimit'
+  
+  route.UpdateObjStatusEndpoint: 'http://0.0.0.0:9094/webservice/sap/v1.0/happay/updateobjectstatus'
+  route.UpdateObjStatusBE: 'http://0.0.0.0:9092/rest/happay/v1.0/updateobjectstatus'
+  route.CygnetVendorEndpoint: 'restlet:http://0.0.0.0:9092/rest/sap/v1.0/cygnet/{operationName}?restletMethod=POST'
+  route.CygnetVendorBE: 'restlet:http://cygnetvendorbackendadapter:9902/rest/v1.0/cygnet/CygnetVendorAPI?socketTimeout=30000&ConnectTimeout=0&restletMethod=POST'
+  
+  route.ICICIPaymmentEndpointFE: 'restlet:http://0.0.0.0:9092/rest/sap/v1.0/icici/composite-payment?restletMethod=POST'
+  route.ICICIPaymmentEndpointBE: 'http4://icicibackendadapter:9092/rest/v1.0/icici/composite-payment?httpMethod=POST'
+  #route.ICICIPaymmentEndpointBE: 'restlet:http://icicibackendadapter:9092/rest/v1.0/icici/composite-payment'
+  
+  route.ICICIStatusEndpointFE: 'restlet:http://0.0.0.0:9092/rest/sap/v1.0/icici/composite-status?restletMethod=POST'
+  route.ICICIStatusEndpointBE: 'http4://icicibackendadapter:9092/rest/v1.0/icici/composite-status?httpMethod=POST'
+  
+  route.ICICICIBNEFTStatusEndpointFE: 'restlet:http://0.0.0.0:9099/rest/sap/v1.0/icici/CIBNEFTStatus?restletMethod=POST'
+  route.ICICICIBNEFTStatusEndpointBE: 'http4://icicibackendadapter:9092/rest/v1.0/icici/CIBNEFTStatus?httpMethod=POST'
+  
+  route.MCLRRatesUpload_FEAdapterEndpoint: 'http://0.0.0.0:9092/rest/sap/v1.0/fsdatabridge/MCLRRatesUpload'
+  route.MCLRRatesUpload_BEAdapterEndpoint: 'http://fsdatabridgebackendadapter:9902/rest/fsdatabridge/v1.0/MCLRRatesUpload'
+  
+  #Global level setting for navinterface
+  route.navinterface_URL: 'http://0.0.0.0:9092/rest/sap/v1.0/fsdatabridge/navinterface'
+  route.navinterface_ProcessName: 'navinterface'
+  route.navinterface_MaskFields: '{}'
+  route.navinterface_ConnectTimeout: '120000'
+  route.navinterface_SocketTimeout: '120000'
+  route.navinterface_BEAdapterEndpoint: 'http4://fsdatabridgebackendadapter:9902/rest/fsdatabridge/v1.0/navinterface'
+  
+  
+kind: ConfigMap
+metadata:
+  name: sapfe-configmap
+  namespace: dev
