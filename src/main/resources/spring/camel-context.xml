@@ -7,10 +7,24 @@
 	<camelContext id="tngb_poc_1" xmlns="http://camel.apache.org/schema/spring">
 
 		<route>
-<!--			<from uri="netty:tcp://0.0.0.0:5000?textline=false&amp;sync=false" />-->
 			<from uri="{{route.tcpurl}}" />
 			<log message="Recieved Charactor streem is ${body}" />
-			<process ref="CharacterAccumulatorProcessor" />
+			<setHeader name="originalBody">
+				<simple>${body}</simple>
+			</setHeader>
+			<doTry>
+				<process ref="CharacterAccumulatorProcessor" />
+				<choice>
+					<when>
+						<simple>${header.originalBody} == "|"</simple>
+						<log message="${body}" />
+					</when>
+				</choice>
+				<doCatch>
+					<exception>java.lang.Exception</exception>
+					<log message="Inside the exception block :: ${exception.message}" />
+				</doCatch>
+			</doTry>
 		</route>
 
 	</camelContext>
