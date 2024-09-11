@@ -41,8 +41,7 @@ public class CharacterAccumulatorProcessor implements Processor {
                 exchange.setProperty(streamData, parts.get(i));
                 msg = streamData;
             }
-            // System.out.println(msg+": "+exchange.getProperty(msg));
-            log.info("{}",msg+": "+exchange.getProperty(msg));
+            exchange.getIn().setBody(exchange.getProperty(msg));
         }
     }
 
